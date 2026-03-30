@@ -40,21 +40,21 @@ job_market_analyzer/
 - Removes duplicate rows and standardizes text fields
 - Outputs ranked tables: top job titles, top locations, experience level breakdown
 - Charts: Work type distribution (pie) and postings over time (line)
-- Saves cleaned data → `cleaned_job_postings.csv`
+- Saves cleaned data : `cleaned_job_postings.csv`
 
 ### Phase 2 - Skills Analysis
 - Reads `job_skills.csv` and maps abbreviation codes to readable skill names
 - Displays the **Top 20 most in-demand skills** as a ranked table
 - Breaks skills into categories: Programming & Tech, Data & Analytics, Business, etc.
 - Shows top 10 skills per experience level (Entry, Mid-Senior, Associate, etc.)
-- Saves → `top20_skills_summary.csv`
+- Saves : `top20_skills_summary.csv`
 
 ### Phase 3 - Sector-wise Trend Analysis
 - Merges postings with `job_industries.csv` to identify sectors
 - Displays top 15 hiring sectors and sector share as a text bar chart
 - Chart: Job posting trends over time for the top 5 sectors (line chart)
 - Pivot tables: work type and experience level distribution across top sectors
-- Saves → `sector_summary.csv`
+- Saves : `sector_summary.csv`
 
 ### Phase 4 - Salary Analysis
 - Merges with `salaries.csv`, converts hourly rates to yearly equivalents
@@ -62,7 +62,7 @@ job_market_analyzer/
 - Shows full statistics: Mean, Median, Std Dev, Percentiles
 - Chart: Salary distribution histogram and box plot
 - Tables: Salary by experience level, by work type, top 10 paying sectors, top 15 paying job titles
-- Saves → `salary_summary.csv`
+- Saves : `salary_summary.csv`
 
 ### Phase 5 - ML Salary Predictor
 - Trains 3 machine learning models:
@@ -73,7 +73,7 @@ job_market_analyzer/
 - Automatically selects the best performing model
 - Chart: Actual vs Predicted salary scatter plot
 - Text table: Feature importance breakdown
-- Saves → `model_results.csv`
+- Saves : `model_results.csv`
 
 ### Option 6 - Interactive Salary Predictor
 - Uses the trained best model from Phase 5
