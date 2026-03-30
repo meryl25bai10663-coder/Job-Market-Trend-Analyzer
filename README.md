@@ -135,13 +135,6 @@ The model with the highest **R² Score** is automatically selected as the best m
 
 ---
 
-## Dataset
-
-**LinkedIn Job Postings (2023–2024)**  
-Source: [Kaggle — arshkon/linkedin-job-postings](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings)
-
----
-
 ## 📄 License
 
 This project is for educational purposes. Dataset credits go to the original publisher on Kaggle.
