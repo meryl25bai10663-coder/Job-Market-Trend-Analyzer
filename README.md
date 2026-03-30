@@ -1,2 +1,201 @@
-# Job-Market-Trend-Analyzer
-It is a Python-based data analysis tool built on the LinkedIn Job Postings dataset (2023–24). Features 5 analysis phases covering EDA, skills demand, sector trends, salary insights, and an ML-powered salary predictor using Random Forest, Gradient Boosting, and Linear Regression models.
+# 📊 Job Market Trend Analyzer
+
+> *Ever wondered what skills actually get you hired — or how much you should really be earning? This tool digs into real LinkedIn job postings from 2023–24 to uncover hiring trends, the most in-demand skills, top-paying sectors, and more. It even predicts salaries using machine learning. Built in Python, by a curious mind.*
+
+---
+
+## 🗂️ Project Overview
+
+The **Job Market Trend Analyzer** is a menu-driven Python application that performs end-to-end analysis on the [LinkedIn Job Postings (2023–2024)](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings) dataset from Kaggle. It is structured into **5 analytical phases**, each building on the previous one, and culminates in a machine learning model that predicts salaries based on job attributes.
+
+---
+
+## 📁 Project Structure
+
+```
+job_market_analyzer/
+│
+├── job_market_analyzer.py       # Main app — all 5 phases combined
+│
+├── job_postings.csv             # Raw dataset (from Kaggle)
+├── job_skills.csv               # Skills data (from Kaggle)
+├── job_industries.csv           # Industry data (from Kaggle)
+├── salaries.csv                 # Salary data (from Kaggle)
+│
+├── cleaned_job_postings.csv     # Auto-generated after Phase 1
+├── top20_skills_summary.csv     # Auto-generated after Phase 2
+├── sector_summary.csv           # Auto-generated after Phase 3
+├── salary_summary.csv           # Auto-generated after Phase 4
+├── model_results.csv            # Auto-generated after Phase 5
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Installation
+
+**1. Clone or download this repository**
+
+**2. Install required dependencies**
+```bash
+pip install pandas matplotlib seaborn scikit-learn
+```
+
+**3. Download the dataset from Kaggle**
+
+Go to → https://www.kaggle.com/datasets/arshkon/linkedin-job-postings
+
+Download and place these files in the same folder as `job_market_analyzer.py`:
+- `job_postings.csv`
+- `job_skills.csv`
+- `job_industries.csv`
+- `salaries.csv`
+
+**4. Run the app**
+```bash
+python job_market_analyzer.py
+```
+
+---
+
+## 🖥️ Menu Options
+
+```
++======================================================+
+|    JOB MARKET TREND ANALYZER  v2.0 -- MAIN MENU     |
++======================================================+
+|  1  |  Phase 1 -- Data Loading, Cleaning & EDA      |
+|  2  |  Phase 2 -- Skills Analysis                   |
+|  3  |  Phase 3 -- Sector-wise Trend Analysis        |
+|  4  |  Phase 4 -- Salary Analysis                   |
+|  5  |  Phase 5 -- ML Salary Predictor               |
+|  6  |  Interactive Salary Predictor                 |
+|  7  |  Run ALL Phases (1 to 5)                      |
+|  0  |  Exit                                         |
++======================================================+
+```
+
+---
+
+## 🔍 Phase Breakdown
+
+### Phase 1 — Data Loading, Cleaning & EDA
+- Loads raw `job_postings.csv` and performs data cleaning
+- Drops columns with more than 70% missing values
+- Removes duplicate rows and standardizes text fields
+- Outputs ranked tables: top job titles, top locations, experience level breakdown
+- Charts: Work type distribution (pie) and postings over time (line)
+- Saves cleaned data → `cleaned_job_postings.csv`
+
+### Phase 2 — Skills Analysis
+- Reads `job_skills.csv` and maps abbreviation codes to readable skill names
+- Displays the **Top 20 most in-demand skills** as a ranked table
+- Breaks skills into categories: Programming & Tech, Data & Analytics, Business, etc.
+- Shows top 10 skills per experience level (Entry, Mid-Senior, Associate, etc.)
+- Saves → `top20_skills_summary.csv`
+
+### Phase 3 — Sector-wise Trend Analysis
+- Merges postings with `job_industries.csv` to identify sectors
+- Displays top 15 hiring sectors and sector share as a text bar chart
+- Chart: Job posting trends over time for the top 5 sectors (line chart)
+- Pivot tables: work type and experience level distribution across top sectors
+- Saves → `sector_summary.csv`
+
+### Phase 4 — Salary Analysis
+- Merges with `salaries.csv`, converts hourly rates to yearly equivalents
+- Filters salaries to the realistic range ($20,000 – $500,000)
+- Shows full statistics: Mean, Median, Std Dev, Percentiles
+- Chart: Salary distribution histogram and box plot
+- Tables: Salary by experience level, by work type, top 10 paying sectors, top 15 paying job titles
+- Saves → `salary_summary.csv`
+
+### Phase 5 — ML Salary Predictor
+- Trains 3 machine learning models:
+  - Linear Regression
+  - Random Forest Regressor
+  - Gradient Boosting Regressor
+- Evaluates models using **R² Score** and **Mean Absolute Error (MAE)**
+- Automatically selects the best performing model
+- Chart: Actual vs Predicted salary scatter plot
+- Text table: Feature importance breakdown
+- Saves → `model_results.csv`
+
+### Option 6 — Interactive Salary Predictor
+- Uses the trained best model from Phase 5
+- Prompts you to enter: Job Title, Experience Level, Work Type, Industry
+- Shows valid input options automatically
+- Returns a predicted annual salary instantly
+- Run as many predictions as you want in a loop
+
+---
+
+## 📊 Output Files
+
+| File | Generated By | Description |
+|------|-------------|-------------|
+| `cleaned_job_postings.csv` | Phase 1 | Cleaned dataset used by all other phases |
+| `top20_skills_summary.csv` | Phase 2 | Top 20 most in-demand skills with counts |
+| `sector_summary.csv` | Phase 3 | All sectors ranked by job posting count |
+| `salary_summary.csv` | Phase 4 | Job titles with their median salary |
+| `model_results.csv` | Phase 5 | R² score and MAE for all 3 trained models |
+
+### Charts saved as PNG:
+- `work_type_distribution.png`
+- `postings_over_time.png`
+- `sector_trends_over_time.png`
+- `salary_distribution.png`
+- `actual_vs_predicted.png`
+
+---
+
+## 🤖 ML Models Used
+
+| Model | Type | Best For |
+|-------|------|----------|
+| Linear Regression | Linear | Baseline, fast, interpretable |
+| Random Forest | Ensemble (Bagging) | Handles non-linearity, robust |
+| Gradient Boosting | Ensemble (Boosting) | High accuracy on structured data |
+
+The model with the highest **R² Score** is automatically selected as the best model and used for salary predictions.
+
+---
+
+## 📦 Dependencies
+
+| Library | Purpose |
+|---------|---------|
+| `pandas` | Data loading, cleaning, manipulation |
+| `matplotlib` | Chart generation |
+| `seaborn` | Styled visualizations |
+| `scikit-learn` | ML models, encoding, evaluation |
+| `numpy` | Numerical operations |
+
+---
+
+## 💡 Smart Features
+
+- **Lazy loading & caching** — cleaned data and trained models are stored in memory. Running Phase 4 after Phase 1 won't re-clean the dataset.
+- **Auto-dependency** — if `cleaned_job_postings.csv` doesn't exist, Phase 1 runs automatically before any other phase.
+- **Error isolation** — when running all phases (Option 7), if one phase fails, the rest continue.
+- **Text-first output** — most results are shown as clean ranked tables directly in the terminal, with charts reserved only for data that genuinely benefits from visualization.
+
+---
+
+## 📌 Dataset
+
+**LinkedIn Job Postings (2023–2024)**  
+Source: [Kaggle — arshkon/linkedin-job-postings](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings)
+
+---
+
+## 👩‍💻 Author
+
+Built by **Meryl** — B.Tech CSE (AI & ML), VIT Bhopal University  
+A first-year project exploring real-world data science from raw data to machine learning.
+
+---
+
+## 📄 License
+
+This project is for educational purposes. Dataset credits go to the original publisher on Kaggle.
