@@ -1,0 +1,4 @@
+Model,R2_Score,MAE_USD
+Linear Regression,0.0774,47957.08
+Random Forest,0.4198,35836.54
+Gradient Boosting,0.3868,37585.82
