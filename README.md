@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-The **Job Market Trend Analyzer** is a menu-driven Python application that performs end-to-end analysis on the [LinkedIn Job Postings (2023–2024)](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings) dataset from Kaggle. It is structured into **5 analytical phases**, each building on the previous one, and culminates in a machine learning model that predicts salaries based on job attributes.
+The **Job Market Trend Analyzer** is a menu-driven Python application that performs end-to-end analysis. Features 5 analysis phases covering EDA, skills demand, sector trends, salary insights, and an ML-powered salary predictor using Random Forest, Gradient Boosting, and Linear Regression models.
 
 ---
 
@@ -135,6 +135,3 @@ The model with the highest **R² Score** is automatically selected as the best m
 
 ---
 
-## 📄 License
-
-This project is for educational purposes. Dataset credits go to the original publisher on Kaggle.
