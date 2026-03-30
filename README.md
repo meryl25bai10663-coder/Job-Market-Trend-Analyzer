@@ -1,6 +1,6 @@
 # Job Market Trend Analyzer
 
-> *Ever wondered what skills actually get you hired — or how much you should really be earning? This tool digs into real LinkedIn job postings from 2023–24 to uncover hiring trends, the most in-demand skills, top-paying sectors, and more. It even predicts salaries using machine learning. Built in Python, by a curious mind.*
+> *Ever wondered what skills actually get you hired - or how much you should really be earning? This tool digs into real LinkedIn job postings from 2023–24 to uncover hiring trends, the most in-demand skills, top-paying sectors, and more. It even predicts salaries using machine learning. Built in Python, by a curious mind.*
 
 ---
 
@@ -29,30 +29,12 @@ job_market_analyzer/
 ├── model_results.csv            # Auto-generated after Phase 5
 │
 └── README.md
-```
-
-## Menu Options
-
-```
-+======================================================+
-|    JOB MARKET TREND ANALYZER  v2.0 -- MAIN MENU     |
-+======================================================+
-|  1  |  Phase 1 -- Data Loading, Cleaning & EDA      |
-|  2  |  Phase 2 -- Skills Analysis                   |
-|  3  |  Phase 3 -- Sector-wise Trend Analysis        |
-|  4  |  Phase 4 -- Salary Analysis                   |
-|  5  |  Phase 5 -- ML Salary Predictor               |
-|  6  |  Interactive Salary Predictor                 |
-|  7  |  Run ALL Phases (1 to 5)                      |
-|  0  |  Exit                                         |
-+======================================================+
-```
 
 ---
 
 ## Phase Breakdown
 
-### Phase 1 — Data Loading, Cleaning & EDA
+### Phase 1 - Data Loading, Cleaning & EDA
 - Loads raw `job_postings.csv` and performs data cleaning
 - Drops columns with more than 70% missing values
 - Removes duplicate rows and standardizes text fields
@@ -60,29 +42,29 @@ job_market_analyzer/
 - Charts: Work type distribution (pie) and postings over time (line)
 - Saves cleaned data → `cleaned_job_postings.csv`
 
-### Phase 2 — Skills Analysis
+### Phase 2 - Skills Analysis
 - Reads `job_skills.csv` and maps abbreviation codes to readable skill names
 - Displays the **Top 20 most in-demand skills** as a ranked table
 - Breaks skills into categories: Programming & Tech, Data & Analytics, Business, etc.
 - Shows top 10 skills per experience level (Entry, Mid-Senior, Associate, etc.)
 - Saves → `top20_skills_summary.csv`
 
-### Phase 3 — Sector-wise Trend Analysis
+### Phase 3 - Sector-wise Trend Analysis
 - Merges postings with `job_industries.csv` to identify sectors
 - Displays top 15 hiring sectors and sector share as a text bar chart
 - Chart: Job posting trends over time for the top 5 sectors (line chart)
 - Pivot tables: work type and experience level distribution across top sectors
 - Saves → `sector_summary.csv`
 
-### Phase 4 — Salary Analysis
+### Phase 4 - Salary Analysis
 - Merges with `salaries.csv`, converts hourly rates to yearly equivalents
-- Filters salaries to the realistic range ($20,000 – $500,000)
+- Filters salaries to the realistic range ($20,000 - $500,000)
 - Shows full statistics: Mean, Median, Std Dev, Percentiles
 - Chart: Salary distribution histogram and box plot
 - Tables: Salary by experience level, by work type, top 10 paying sectors, top 15 paying job titles
 - Saves → `salary_summary.csv`
 
-### Phase 5 — ML Salary Predictor
+### Phase 5 - ML Salary Predictor
 - Trains 3 machine learning models:
   - Linear Regression
   - Random Forest Regressor
@@ -93,7 +75,7 @@ job_market_analyzer/
 - Text table: Feature importance breakdown
 - Saves → `model_results.csv`
 
-### Option 6 — Interactive Salary Predictor
+### Option 6 - Interactive Salary Predictor
 - Uses the trained best model from Phase 5
 - Prompts you to enter: Job Title, Experience Level, Work Type, Industry
 - Shows valid input options automatically
@@ -147,31 +129,31 @@ The model with the highest **R² Score** is automatically selected as the best m
 
 ## Smart Features
 
-- **Lazy loading & caching** — cleaned data and trained models are stored in memory. Running Phase 4 after Phase 1 won't re-clean the dataset.
-- **Auto-dependency** — if `cleaned_job_postings.csv` doesn't exist, Phase 1 runs automatically before any other phase.
-- **Error isolation** — when running all phases (Option 7), if one phase fails, the rest continue.
-- **Text-first output** — most results are shown as clean ranked tables directly in the terminal, with charts reserved only for data that genuinely benefits from visualization.
+- **Lazy loading & caching** - cleaned data and trained models are stored in memory. Running Phase 4 after Phase 1 won't re-clean the dataset.
+- **Auto-dependency** - if `cleaned_job_postings.csv` doesn't exist, Phase 1 runs automatically before any other phase.
+- **Error isolation** - when running all phases (Option 7), if one phase fails, the rest continue.
+- **Text-first output** - most results are shown as clean ranked tables directly in the terminal, with charts reserved only for data that genuinely benefits from visualization.
 
 ---
 ## Known Limitations
 
-- Dataset is static — the analysis is limited to the 2023–24 LinkedIn snapshot from Kaggle and does not reflect live or current job market data.
-- Salary coverage is partial — not all job postings have salary information, so salary analysis and ML predictions are based on a subset of the full dataset.
-- Hourly to yearly conversion is estimated — assumes a standard 40hrs/week × 52 weeks. Actual compensation may vary.
-- ML model accuracy is moderate — predictions are based only on 4 features (title, experience, work type, industry). Many real-world salary factors like location, company size, and negotiation are not captured.
-- Skill abbreviation mapping is manual — unmapped skill codes fall back to their raw abbreviation, which may appear unclear in output tables.
-- US-centric data — the LinkedIn dataset skews heavily toward US-based job postings, limiting global applicability.
-- No real-time validation — the interactive predictor accepts free-text input and silently falls back to a default if the value isn't recognized.
+- Dataset is static - the analysis is limited to the 2023–24 LinkedIn snapshot from Kaggle and does not reflect live or current job market data.
+- Salary coverage is partial - not all job postings have salary information, so salary analysis and ML predictions are based on a subset of the full dataset.
+- Hourly to yearly conversion is estimated - assumes a standard 40hrs/week × 52 weeks. Actual compensation may vary.
+- ML model accuracy is moderate - predictions are based only on 4 features (title, experience, work type, industry). Many real-world salary factors like location, company size, and negotiation are not captured.
+- Skill abbreviation mapping is manual - unmapped skill codes fall back to their raw abbreviation, which may appear unclear in output tables.
+- US-centric data - the LinkedIn dataset skews heavily toward US-based job postings, limiting global applicability.
+- No real-time validation - the interactive predictor accepts free-text input and silently falls back to a default if the value isn't recognized.
 
 ---
 
  ## Future Improvements
 
-- Live data integration — connect to the LinkedIn API or job board APIs (Indeed, Glassdoor) to fetch real-time postings.
-- Location-based salary filtering — factor in city or state to improve salary prediction accuracy significantly.
-- More ML models — experiment with XGBoost, LightGBM, or neural networks for higher prediction accuracy.
-- Salary trend over time — track how salaries for specific roles have changed month-by-month across the dataset.
-- Better NLP for job titles — use text clustering to group similar job titles (e.g. "ML Engineer", "Machine Learning Engineer", "AI Engineer") and reduce noise in predictions.
+- Live data integration - connect to the LinkedIn API or job board APIs (Indeed, Glassdoor) to fetch real-time postings.
+- Location-based salary filtering - factor in city or state to improve salary prediction accuracy significantly.
+- More ML models - experiment with XGBoost, LightGBM, or neural networks for higher prediction accuracy.
+- Salary trend over time - track how salaries for specific roles have changed month-by-month across the dataset.
+- Better NLP for job titles - use text clustering to group similar job titles (e.g. "ML Engineer", "Machine Learning Engineer", "AI Engineer") and reduce noise in predictions.
 
 ---
 
