@@ -1,7 +1,3 @@
-#   Dataset : LinkedIn Job Postings (2023–2024)
-#   Source  : https://www.kaggle.com/datasets/arshkon/linkedin-job-postings
-
-
 import os
 import sys
 import warnings
@@ -27,9 +23,8 @@ except ImportError:
     SKLEARN_AVAILABLE = False
 
 
-# ════════════════════════════════════════════════════════════
+
 #   SHARED HELPERS
-# ════════════════════════════════════════════════════════════
 
 _state = {
     "postings"      : None,
