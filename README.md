@@ -29,7 +29,7 @@ job_market_analyzer/
 ├── model_results.csv            # Auto-generated after Phase 5
 │
 └── README.md
-
+```
 ---
 
 ## Phase Breakdown
