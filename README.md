@@ -10,28 +10,6 @@ The **Job Market Trend Analyzer** is a menu-driven Python application that perfo
 
 ---
 
-## Project Structure
-
-```
-job_market_analyzer/
-│
-├── job_market_analyzer.py       # Main app — all 5 phases combined
-│
-├── job_postings.csv             # Raw dataset (from Kaggle)
-├── job_skills.csv               # Skills data (from Kaggle)
-├── job_industries.csv           # Industry data (from Kaggle)
-├── salaries.csv                 # Salary data (from Kaggle)
-│
-├── cleaned_job_postings.csv     # Auto-generated after Phase 1
-├── top20_skills_summary.csv     # Auto-generated after Phase 2
-├── sector_summary.csv           # Auto-generated after Phase 3
-├── salary_summary.csv           # Auto-generated after Phase 4
-├── model_results.csv            # Auto-generated after Phase 5
-│
-└── README.md
-```
----
-
 ## Phase Breakdown
 
 ### Phase 1 - Data Loading, Cleaning & EDA
