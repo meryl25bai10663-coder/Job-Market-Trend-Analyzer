@@ -182,9 +182,6 @@ Source: [Kaggle — arshkon/linkedin-job-postings](https://www.kaggle.com/datase
 
 ---
 
-
----
-
 ## 📄 License
 
 This project is for educational purposes. Dataset credits go to the original publisher on Kaggle.
