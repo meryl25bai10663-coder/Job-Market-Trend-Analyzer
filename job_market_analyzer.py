@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 sns.set_theme(style="whitegrid", palette="muted")
 plt.rcParams["figure.figsize"] = (13, 6)
 
-# ─── sklearn imports (needed only for Phase 5) ───────────────
+# sklearn imports (needed only for Phase 5)
 try:
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import LabelEncoder
@@ -177,7 +177,7 @@ def run_phase1(silent: bool = False):
         print(f"\n  Rows    : {df.shape[0]:,}")
         print(f"  Columns : {df.shape[1]}")
 
-    # -- Missing values -> TEXT TABLE ----------------------------
+    # Missing values -> TEXT TABLE 
     missing     = df.isnull().sum()
     missing_pct = (missing / len(df) * 100).round(2)
     missing_df  = pd.DataFrame({
@@ -188,7 +188,7 @@ def run_phase1(silent: bool = False):
     if not silent:
         _print_table(missing_df, "Missing Values Summary")
 
-    # -- Clean ---------------------------------------------------
+    #  Clean
     cols_to_drop = missing_pct[missing_pct > 70].index.tolist()
     df.drop(columns=cols_to_drop, inplace=True)
     before = len(df)
@@ -219,19 +219,19 @@ def run_phase1(silent: bool = False):
     if silent:
         return
 
-    # -- Top job titles -> TEXT TABLE ----------------------------
+    #  Top job titles -> TEXT TABLE 
     if "title" in df.columns:
         top_titles = df["title"].value_counts().head(15).reset_index()
         top_titles.columns = ["Job Title", "Postings"]
         _print_table(top_titles, "Top 15 Most Common Job Titles")
 
-    # -- Top locations -> TEXT TABLE -----------------------------
+    # Top locations -> TEXT TABLE 
     if "location" in df.columns:
         top_loc = df["location"].value_counts().head(15).reset_index()
         top_loc.columns = ["Location", "Postings"]
         _print_table(top_loc, "Top 15 Job Posting Locations")
 
-    # -- Work type -> CHART (proportions best shown visually) ----
+    # Work type -> CHART (proportions best shown visually) 
     if "work_type" in df.columns:  
         wc = df["work_type"].value_counts()
         fig, ax = plt.subplots(figsize=(12, 7))
@@ -250,7 +250,7 @@ def run_phase1(silent: bool = False):
         plt.show()
         print('  [OK] Chart saved: work_type_distribution.png')
 
-    # -- Postings over time -> CHART (trend line) ----------------
+    #  Postings over time -> CHART (trend line) 
     if "posted_month" in df.columns:
         pot = df["posted_month"].value_counts().sort_index()
         plt.figure(figsize=(13, 5))
@@ -262,7 +262,7 @@ def run_phase1(silent: bool = False):
         plt.show()
         print("  [OK] Chart saved: postings_over_time.png")
 
-    # -- Experience level -> TEXT SUMMARY ------------------------
+    #  Experience level -> TEXT SUMMARY 
     if "formatted_experience_level" in df.columns:
         exp = df["formatted_experience_level"].value_counts().reset_index()
         exp.columns = ["Experience Level", "Postings"]
@@ -291,12 +291,12 @@ def run_phase2():
 
     print(f"  [OK] Skills loaded: {skills_df.shape[0]:,} rows")
 
-    # -- Top 20 skills -> TEXT TABLE -----------------------------
+    # Top 20 skills -> TEXT TABLE 
     skill_counts = Counter(skills_df["skill_name"].tolist())
     top20 = pd.DataFrame(skill_counts.most_common(20), columns=["Skill", "Job Postings"])
     _print_table(top20, "Top 20 Most In-Demand Skills")
 
-    # -- Skill categories -> TEXT SUMMARY ------------------------
+    # Skill categories -> TEXT SUMMARY 
     abr_counts = Counter(skills_df["skill_abr"].tolist())
     category_counts = {
         cat: sum(abr_counts.get(code, 0) for code in codes)
@@ -313,7 +313,7 @@ def run_phase2():
         pct = row["Total Mentions"] / total_mentions * 100
         print(f"  {row['Category']:<22} {row['Total Mentions']:>7,}  ({pct:4.1f}%)  {bar}")
 
-    # -- Skills by experience level -> TEXT TABLE ----------------
+    # Skills by experience level -> TEXT TABLE 
     if "job_id" in skills_df.columns and "formatted_experience_level" in postings.columns:
         id_col = "job_id" if "job_id" in postings.columns else postings.columns[0]
         merged = skills_df.merge(
@@ -360,12 +360,12 @@ def run_phase3():
             print("  [X]  No industry data available. Please add job_industries.csv.")
             return
 
-    # -- Top 15 sectors -> TEXT TABLE ----------------------------
+    #  Top 15 sectors -> TEXT TABLE 
     top_sectors = merged[ind_name_col].value_counts().head(15).reset_index()
     top_sectors.columns = ["Sector", "Job Postings"]
     _print_table(top_sectors, "Top 15 Hiring Sectors")
 
-    # -- Sector share -> TEXT BAR CHART --------------------------
+    #  Sector share -> TEXT BAR CHART 
     _subheader("Sector Share of Job Postings (Top 10)")
     total = len(merged)
     top10_counts = merged[ind_name_col].value_counts().head(10)
@@ -376,7 +376,7 @@ def run_phase3():
     other_pct = merged[ind_name_col].value_counts().iloc[10:].sum() / total * 100
     print(f"  {'Other':<35} {other_pct:5.1f}%")
 
-    # -- Sector trends over time -> CHART (multi-line trend) -----
+    #  Sector trends over time -> CHART (multi-line trend) 
     date_col = next((c for c in ["posted_month", "posted_date"] if c in merged.columns), None)
     if date_col:
         top5 = merged[ind_name_col].value_counts().head(5).index.tolist()
@@ -400,7 +400,7 @@ def run_phase3():
         plt.show()
         print("\n  [OK] Chart saved: sector_trends_over_time.png")
 
-    # -- Sector by work type -> PIVOT TEXT TABLE -----------------
+    #  Sector by work type -> PIVOT TEXT TABLE 
     if "work_type" in merged.columns:
         top8 = merged[ind_name_col].value_counts().head(8).index.tolist()
         pivot = (
@@ -411,7 +411,7 @@ def run_phase3():
         _subheader("Work Type Distribution Across Top 8 Sectors")
         print(pivot.to_string())
 
-    # -- Sector by experience level -> PIVOT TEXT TABLE ----------
+    #  Sector by experience level -> PIVOT TEXT TABLE
     if "formatted_experience_level" in merged.columns:
         top6 = merged[ind_name_col].value_counts().head(6).index.tolist()
         pivot_exp = (
@@ -454,7 +454,7 @@ def run_phase4():
 
     print(f"  [OK] Rows with salary data: {df.shape[0]:,}")
 
-    # -- Overall stats -> TEXT -----------------------------------
+    # Overall stats -> TEXT 
     s = df["salary"]
     _subheader("Overall Salary Statistics")
     print(f"  Mean          : ${s.mean():>12,.0f}")
@@ -465,7 +465,7 @@ def run_phase4():
     print(f"  75th pct      : ${s.quantile(0.75):>12,.0f}")
     print(f"  Max           : ${s.max():>12,.0f}")
 
-    # -- Salary distribution -> CHART (shape of data) ------------
+    #  Salary distribution -> CHART (shape of data) -
     fig, ax = plt.subplots(figsize=(12, 9))
     ax.hist(s.dropna(), bins=40, color="steelblue", edgecolor="white")
     ax.set_title("Salary Distribution", fontsize=13, fontweight="bold")
@@ -478,7 +478,7 @@ def run_phase4():
     plt.show()
     print("\n  [OK] Chart saved: salary_distribution.png")
 
-    # -- Salary by experience level -> TEXT TABLE ----------------
+    # Salary by experience level -> TEXT TABLE 
     if "formatted_experience_level" in df.columns:
         exp_sal = (
             df.dropna(subset=["formatted_experience_level", "salary"])
@@ -492,7 +492,7 @@ def run_phase4():
         _subheader("Salary by Experience Level")
         print(exp_sal_fmt.to_string())
 
-    # -- Salary by work type -> TEXT TABLE -----------------------
+    #  Salary by work type -> TEXT TABLE 
     work_col = next((c for c in ["formatted_work_type", "work_type"] if c in df.columns), None)
     if work_col:
         wt_sal = (
@@ -507,7 +507,7 @@ def run_phase4():
         _subheader("Salary by Work Type")
         print(wt_sal_fmt.to_string())
 
-    # -- Top 10 paying sectors -> TEXT TABLE ---------------------
+    # Top 10 paying sectors -> TEXT TABLE 
     if HAS_INDUSTRY:
         sector_sal = (
             df.dropna(subset=[ind_name_col, "salary"])
@@ -523,7 +523,7 @@ def run_phase4():
         sector_sal["Mean Salary"]   = sector_sal["Mean Salary"].apply(lambda x: f"${x:,.0f}")
         _print_table(sector_sal, "Top 10 Highest Paying Sectors")
 
-    # -- Top 15 paying titles -> TEXT TABLE ----------------------
+    # Top 15 paying titles -> TEXT TABLE 
     if "title" in df.columns:
         title_sal = (
             df.dropna(subset=["title", "salary"])
@@ -573,7 +573,7 @@ def run_phase5():
 
     print(f"  [OK] Dataset ready: {df.shape[0]:,} rows")
 
-    # -- Feature engineering -------------------------------------
+    #  Feature engineering 
     work_col     = next((c for c in ["formatted_work_type", "work_type"] if c in df.columns), None)
     feature_cols = []
     if work_col:
@@ -604,7 +604,7 @@ def run_phase5():
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     print(f"  Train : {X_train.shape[0]:,}  |  Test: {X_test.shape[0]:,}")
 
-    # -- Train models --------------------------------------------
+    # Train models 
     models = {
         "Linear Regression" : LinearRegression(),
         "Random Forest"     : RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1),
@@ -620,7 +620,7 @@ def run_phase5():
         results[name] = {"model": model, "preds": preds, "MAE": mae, "R2": r2}
         print("  done.")
 
-    # -- Model comparison -> TEXT TABLE --------------------------
+    #  Model comparison -> TEXT TABLE 
     best_r2 = max(v["R2"] for v in results.values())
     _subheader("Model Performance Comparison")
     print(f"  {'Model':<25} {'R2 Score':>10}  {'MAE (USD)':>12}  Note")
@@ -637,7 +637,7 @@ def run_phase5():
     print(f"  R2 Score    : {results[best_name]['R2']:.4f}")
     print(f"  MAE         : ${results[best_name]['MAE']:,.0f}  (avg prediction error)")
 
-    # -- Cache ---------------------------------------------------
+    #  Cache 
     _state.update({
         "best_model"   : best_model,
         "best_name"    : best_name,
@@ -648,7 +648,7 @@ def run_phase5():
         "HAS_INDUSTRY" : HAS_INDUSTRY,
     })
 
-    # -- Actual vs Predicted -> CHART (essential for ML eval) ----
+    #  Actual vs Predicted -> CHART (essential for ML eval) 
     plt.figure(figsize=(10, 6))
     plt.scatter(y_test, best_preds, alpha=0.3, color="steelblue",
                 edgecolors="none", s=15)
@@ -665,7 +665,7 @@ def run_phase5():
     plt.show()
     print("\n  [OK] Chart saved: actual_vs_predicted.png")
 
-    # -- Feature importance -> TEXT TABLE ------------------------
+    #  Feature importance -> TEXT TABLE 
     if hasattr(best_model, "feature_importances_"):
         imp_df = pd.DataFrame({
             "Feature"    : feature_cols,
@@ -688,9 +688,7 @@ def run_phase5():
     print("\n  Phase 5 complete!")
 
 
-# ════════════════════════════════════════════════════════════
 #   PHASE 5b — Interactive Salary Predictor
-# ════════════════════════════════════════════════════════════
 
 def run_salary_predictor():
     _header("Interactive Salary Predictor")
@@ -780,10 +778,7 @@ def run_salary_predictor():
         if again != "y":
             break
 
-
-# ════════════════════════════════════════════════════════════
 #   RUN ALL PHASES
-# ════════════════════════════════════════════════════════════
 
 def run_all():
     _header("RUNNING ALL 5 PHASES")
@@ -795,9 +790,8 @@ def run_all():
     print("\n  ALL PHASES COMPLETE!")
 
 
-# ════════════════════════════════════════════════════════════
+
 #   MAIN MENU
-# ════════════════════════════════════════════════════════════
 
 MENU = """
 +======================================================+
