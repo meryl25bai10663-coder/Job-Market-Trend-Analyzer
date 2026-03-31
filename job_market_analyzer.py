@@ -274,7 +274,6 @@ def run_phase1(silent: bool = False):
 
 #   PHASE 2 - Skills Analysis
 
-
 def run_phase2():
     from collections import Counter
 
