@@ -272,7 +272,7 @@ def run_phase1(silent: bool = False):
     print("  Phase 1 complete!")
 
 
-#   PHASE 2 — Skills Analysis
+#   PHASE 2 - Skills Analysis
 
 
 def run_phase2():
@@ -334,7 +334,7 @@ def run_phase2():
     print("\n  Phase 2 complete!")
 
 
-#   PHASE 3 — Sector-wise Trend Analysis
+#   PHASE 3 - Sector-wise Trend Analysis
 
 
 def run_phase3():
@@ -429,7 +429,7 @@ def run_phase3():
     print("\n  Phase 3 complete!")
 
 
-#   PHASE 4 — Salary Analysis
+#   PHASE 4 - Salary Analysis
 
 
 def run_phase4():
@@ -544,7 +544,7 @@ def run_phase4():
 
 
 
-#   PHASE 5 — ML Salary Predictor
+#   PHASE 5 - ML Salary Predictor
 
 
 def run_phase5():
@@ -688,7 +688,7 @@ def run_phase5():
     print("\n  Phase 5 complete!")
 
 
-#   PHASE 5b — Interactive Salary Predictor
+#   PHASE 5b - Interactive Salary Predictor
 
 def run_salary_predictor():
     _header("Interactive Salary Predictor")
